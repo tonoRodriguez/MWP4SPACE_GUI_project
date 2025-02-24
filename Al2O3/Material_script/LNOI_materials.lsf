@@ -1,0 +1,69 @@
+######################################################
+########  Configure/Reset the Software here
+switchtolayout; #switch to layout mode
+deleteall;   #delete all existing objects/structures
+#cleardcard;  # clear the d-cards used to store mode profiles
+clear;
+clearfunctions;
+######################################################
+######## LiNbO3 Sellmeier Equation from from www.refractiveindex.info
+if(materialexists("LN_SE")==0){
+    material_LN = addmaterial("Sellmeier");
+    setmaterial(material_LN,"name","LN_SE");
+    setmaterial("LN_SE", "A0", 1);
+    setmaterial("LN_SE", "B1", 2.6734);
+    setmaterial("LN_SE", "C1", 0.01764^2);
+    setmaterial("LN_SE", "B2", 1.229);
+    setmaterial("LN_SE", "C2", 0.05914^2);
+    setmaterial("LN_SE", "B3", 12.614);
+    setmaterial("LN_SE", "C3",474.60^2);
+    setmaterial("LN_SE", "Color", [90/255,125/255,35/255,100/255]);
+    material_LN = "LN_SE";
+}
+
+######################################################
+######## LiNbO3 Sellmeier Equation from from www.refractiveindex.info
+if(materialexists("Al2O3_SE")==0){
+    material_ALO = addmaterial("Sellmeier");
+    setmaterial(material_ALO,"name","Al2O3_SE");
+    setmaterial("Al2O3_SE", "A0", 1);
+    setmaterial("Al2O3_SE", "B1", 1.4313493);
+    setmaterial("Al2O3_SE", "C1", 0.0726631^2);
+    setmaterial("Al2O3_SE", "B2", 0.65054713);
+    setmaterial("Al2O3_SE", "C2", 0.1193242^2);
+    setmaterial("Al2O3_SE", "B3", 5.3414021 );
+    setmaterial("Al2O3_SE", "C3",18.028251^2);
+    setmaterial("Al2O3_SE", "Color", [90/255,125/255,35/255,100/255]);
+    material_ALO = "Al2O3_SE";
+}
+######################################################
+######## Add New Material : Fiber Core SMF28 with index contrast of 0.36% 
+######## Material = SiO2-Fused Quartz from www.refractiveindex.info
+if(materialexists("SiO2_fusedquartz")==0){
+    material_SiO2_fusedquartz = addmaterial("Sellmeier");
+    setmaterial(material_SiO2_fusedquartz,"name","SiO2_fusedquartz");
+    setmaterial("SiO2_fusedquartz", "A0", 1);
+    setmaterial("SiO2_fusedquartz", "B1", 0.6961663);
+    setmaterial("SiO2_fusedquartz", "C1", 0.0684043^2);
+    setmaterial("SiO2_fusedquartz", "B2", 0.4079426);
+    setmaterial("SiO2_fusedquartz", "C2", 0.1162414^2);
+    setmaterial("SiO2_fusedquartz", "B3", 0.8974794);
+    setmaterial("SiO2_fusedquartz", "C3", 9.896161^2);
+    setmaterial("SiO2_fusedquartz", "Color", [150/255,220/255,248/255,0]);
+    material_SiO2_fusedquartz = "SiO2_fusedquartz";
+}
+
+#
+if(materialexists("Si_Salzberg")==0){
+    material_Si_core = addmaterial("Sellmeier");
+    setmaterial(material_Si_core,"name","Si_Salzberg");
+    setmaterial("Si_Salzberg", "A0", 1.0);
+    setmaterial("Si_Salzberg", "B1", 10.6684293);
+    setmaterial("Si_Salzberg", "C1", 0.301516485^2);
+    setmaterial("Si_Salzberg", "B2", 0.0030434748);
+    setmaterial("Si_Salzberg", "C2", 1.13475115^2);
+    setmaterial("Si_Salzberg", "B3", 1.54133408);
+    setmaterial("Si_Salzberg", "C3", 1104^2);
+    setmaterial("Si_Salzberg", "Color", [0/255,0/255,160/255,0]);
+    material_SiO2_fusedquartz = "Si_Salzberg";
+}
