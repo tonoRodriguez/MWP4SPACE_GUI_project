@@ -1,0 +1,172 @@
+Ansys Lumerical 2024 R1.3 Variational FDTD Solver Version 7.23.3766 (Windows 64bit)
+ expires (month/day/year): 2/28/2025
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 1055@172.19.61.210
+current time: Mon Feb 10 12:37:46 2025
+Running on host: Sorcerer-1
+All processes are communicating and ready to proceed to simulation...
+Running lms file: C:\Program Files\Lumerical\v241\bin\varfdtd-engine-msmpi.exe -t 1 -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48SUQ+NTdkNjlmOTEtMTU1Ny00ZDZhLWJmMTgtOGEzNmRlMDFiOTg5PC9JRD48VFlQRT5BUFBfREVGSU5FRDwvVFlQRT48TkFNRT5sdW1fc3RhbmRhcmRfc29sdmVfc2hhcmU8L05BTUU+PEhBTkRMRVI+NTAxODZAU29yY2VyZXItMTwvSEFORExFUj48L0FOU1lTX0xJQ0VOU0lOR19DT05URVhUX0RBVEE+Cg== C:/Users/Antonio/documents/work in vigo/sin/SiN_RingResonator.lms
+Starting meshing
+Simulation size in gridpoints: 1 x 25 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 25 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 25 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+number of processors is 24
+processors are distributed as: 6x4x1
+Running TE Simulation
+Starting meshing
+Simulation size in gridpoints: 468 x 650 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 2.65625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 468 x 650 x 1
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 2.65625 seconds of CPU time
+finished material properties
+Selected kernel with optimization level: 0 and split-field propagation direction: 0
+-----------------------------------------
+Beginning initialization of TE Simulation
+Starting to add sources to simulation
+Adding TE Mode Source propagating in X
+Starting to add boundary conditions to simulation
+Adding TE PML BC
+Adding TE parallel BC
+Adding TE PML BC
+Adding TE parallel BC
+Starting to add monitors to Simulation
+Adding analysis monitor
+Adding TE DFT monitor
+Adding TE index monitor
+Adding TE DFT monitor
+Adding TE DFT monitor
+Finished initialization of TE Simulation
+-----------------------------------------
+All processes are communicating and ready to proceed to simulation...
+Starting 9944 total iterations
+0% complete. Max time remaining: 10 mins, 48 secs. Auto Shutoff: 1
+1% complete. Max time remaining: 4 mins, 55 secs. Auto Shutoff: 1
+3% complete. Max time remaining: 3 mins, 46 secs. Auto Shutoff: 1
+4% complete. Max time remaining: 3 mins, 20 secs. Auto Shutoff: 1
+5% complete. Max time remaining: 3 mins, 11 secs. Auto Shutoff: 1
+6% complete. Max time remaining: 3 mins, 0 secs. Auto Shutoff: 1
+6% complete. Max time remaining: 2 mins, 56 secs. Auto Shutoff: 1
+8% complete. Max time remaining: 2 mins, 49 secs. Auto Shutoff: 1
+8% complete. Max time remaining: 2 mins, 46 secs. Auto Shutoff: 1
+9% complete. Max time remaining: 2 mins, 44 secs. Auto Shutoff: 1
+11% complete. Max time remaining: 2 mins, 37 secs. Auto Shutoff: 1
+12% complete. Max time remaining: 2 mins, 35 secs. Auto Shutoff: 1
+13% complete. Max time remaining: 2 mins, 31 secs. Auto Shutoff: 1
+14% complete. Max time remaining: 2 mins, 29 secs. Auto Shutoff: 1
+14% complete. Max time remaining: 2 mins, 28 secs. Auto Shutoff: 1
+15% complete. Max time remaining: 2 mins, 25 secs. Auto Shutoff: 1
+17% complete. Max time remaining: 2 mins, 22 secs. Auto Shutoff: 1
+17% complete. Max time remaining: 2 mins, 20 secs. Auto Shutoff: 1
+18% complete. Max time remaining: 2 mins, 19 secs. Auto Shutoff: 1
+19% complete. Max time remaining: 2 mins, 17 secs. Auto Shutoff: 1
+21% complete. Max time remaining: 2 mins, 13 secs. Auto Shutoff: 1
+22% complete. Max time remaining: 2 mins, 12 secs. Auto Shutoff: 1
+23% complete. Max time remaining: 2 mins, 11 secs. Auto Shutoff: 1
+23% complete. Max time remaining: 2 mins, 10 secs. Auto Shutoff: 1
+24% complete. Max time remaining: 2 mins, 7 secs. Auto Shutoff: 0.746942
+25% complete. Max time remaining: 2 mins, 6 secs. Auto Shutoff: 0.73135
+26% complete. Max time remaining: 2 mins, 4 secs. Auto Shutoff: 0.718174
+27% complete. Max time remaining: 2 mins, 3 secs. Auto Shutoff: 0.706831
+28% complete. Max time remaining: 2 mins, 1 secs. Auto Shutoff: 0.697154
+30% complete. Max time remaining: 1 min, 58 secs. Auto Shutoff: 0.684294
+30% complete. Max time remaining: 1 min, 58 secs. Auto Shutoff: 0.684294
+32% complete. Max time remaining: 1 min, 55 secs. Auto Shutoff: 0.678534
+32% complete. Max time remaining: 1 min, 54 secs. Auto Shutoff: 0.671343
+33% complete. Max time remaining: 1 min, 52 secs. Auto Shutoff: 0.663663
+34% complete. Max time remaining: 1 min, 51 secs. Auto Shutoff: 0.656738
+35% complete. Max time remaining: 1 min, 55 secs. Auto Shutoff: 0.650927
+36% complete. Max time remaining: 1 min, 54 secs. Auto Shutoff: 0.645997
+37% complete. Max time remaining: 1 min, 51 secs. Auto Shutoff: 0.641893
+38% complete. Max time remaining: 1 min, 50 secs. Auto Shutoff: 0.639117
+39% complete. Max time remaining: 1 min, 47 secs. Auto Shutoff: 0.637557
+40% complete. Max time remaining: 1 min, 46 secs. Auto Shutoff: 0.635767
+41% complete. Max time remaining: 1 min, 44 secs. Auto Shutoff: 0.632747
+43% complete. Max time remaining: 1 min, 41 secs. Auto Shutoff: 0.628763
+43% complete. Max time remaining: 1 min, 40 secs. Auto Shutoff: 0.624636
+45% complete. Max time remaining: 1 min, 37 secs. Auto Shutoff: 0.620999
+45% complete. Max time remaining: 1 min, 36 secs. Auto Shutoff: 0.617986
+47% complete. Max time remaining: 1 min, 34 secs. Auto Shutoff: 0.615561
+47% complete. Max time remaining: 1 min, 33 secs. Auto Shutoff: 0.613938
+48% complete. Max time remaining: 1 min, 32 secs. Auto Shutoff: 0.613045
+49% complete. Max time remaining: 1 min, 30 secs. Auto Shutoff: 0.61217
+50% complete. Max time remaining: 1 min, 29 secs. Auto Shutoff: 0.610852
+51% complete. Max time remaining: 1 min, 26 secs. Auto Shutoff: 0.60901
+53% complete. Max time remaining: 1 min, 24 secs. Auto Shutoff: 0.60675
+53% complete. Max time remaining: 1 min, 23 secs. Auto Shutoff: 0.604413
+55% complete. Max time remaining: 1 min, 20 secs. Auto Shutoff: 0.602314
+55% complete. Max time remaining: 1 min, 20 secs. Auto Shutoff: 0.600589
+56% complete. Max time remaining: 1 min, 17 secs. Auto Shutoff: 0.599323
+57% complete. Max time remaining: 1 min, 16 secs. Auto Shutoff: 0.598453
+58% complete. Max time remaining: 1 min, 14 secs. Auto Shutoff: 0.597788
+59% complete. Max time remaining: 1 min, 13 secs. Auto Shutoff: 0.597316
+61% complete. Max time remaining: 1 min, 9 secs. Auto Shutoff: 0.596719
+62% complete. Max time remaining: 1 min, 8 secs. Auto Shutoff: 0.595536
+62% complete. Max time remaining: 1 min, 7 secs. Auto Shutoff: 0.593854
+64% complete. Max time remaining: 1 min, 4 secs. Auto Shutoff: 0.592015
+64% complete. Max time remaining: 1 min, 3 secs. Auto Shutoff: 0.589999
+65% complete. Max time remaining: 1 min, 1 secs. Auto Shutoff: 0.586726
+66% complete. Max time remaining: 60 secs. Auto Shutoff: 0.586726
+67% complete. Max time remaining: 57 secs. Auto Shutoff: 0.557778
+68% complete. Max time remaining: 56 secs. Auto Shutoff: 0.557778
+69% complete. Max time remaining: 55 secs. Auto Shutoff: 0.51473
+70% complete. Max time remaining: 53 secs. Auto Shutoff: 0.367749
+72% complete. Max time remaining: 51 secs. Auto Shutoff: 0.293124
+73% complete. Max time remaining: 49 secs. Auto Shutoff: 0.234073
+73% complete. Max time remaining: 48 secs. Auto Shutoff: 0.234073
+74% complete. Max time remaining: 46 secs. Auto Shutoff: 0.158527
+75% complete. Max time remaining: 45 secs. Auto Shutoff: 0.158527
+77% complete. Max time remaining: 44 secs. Auto Shutoff: 0.113162
+78% complete. Max time remaining: 43 secs. Auto Shutoff: 0.0961809
+79% complete. Max time remaining: 40 secs. Auto Shutoff: 0.0817014
+80% complete. Max time remaining: 39 secs. Auto Shutoff: 0.0691391
+80% complete. Max time remaining: 37 secs. Auto Shutoff: 0.0691391
+82% complete. Max time remaining: 35 secs. Auto Shutoff: 0.0482838
+82% complete. Max time remaining: 34 secs. Auto Shutoff: 0.0482838
+84% complete. Max time remaining: 31 secs. Auto Shutoff: 0.0315157
+84% complete. Max time remaining: 30 secs. Auto Shutoff: 0.0315157
+85% complete. Max time remaining: 27 secs. Auto Shutoff: 0.0242636
+86% complete. Max time remaining: 26 secs. Auto Shutoff: 0.0176723
+87% complete. Max time remaining: 24 secs. Auto Shutoff: 0.0118363
+88% complete. Max time remaining: 23 secs. Auto Shutoff: 0.00702557
+89% complete. Max time remaining: 20 secs. Auto Shutoff: 0.00354599
+91% complete. Max time remaining: 18 secs. Auto Shutoff: 0.000476524
+91% complete. Max time remaining: 16 secs. Auto Shutoff: 0.000476524
+93% complete. Max time remaining: 13 secs. Auto Shutoff: 2.25128e-05
+94% complete. Max time remaining: 12 secs. Auto Shutoff: 3.14048e-06
+Early termination of simulation, the autoshutoff criteria are satisfied.
+Completed 9305 iterations, or 9.35757e-13s of Simulation Time
+Process 0 starting to collect data
+    collecting monitor data
+    collecting source data
+Finished collecting data
+304200
+
+9305
+
+174.581
+
+Simulation completed successfully at: Mon Feb 10 12:41:25 2025
+Peak memory used in the simulation: 2398853 kB
+Overall wall time measurements in seconds: 219.665
+    time to mesh and initialize: 7.36745
+    time to run FDTD simulation: 174.581
+    time to finalize data and save to files: 29.2954
+    miscellaneous time: 8.42152
+    FDTD solver speed on process 0: 16.2136 Mnodes/s
+    total FDTD solver speed on 24 processes: 389.127 Mnodes/s
