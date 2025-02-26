@@ -1,0 +1,81 @@
+Ansys Lumerical 2024 R1.3 Eigenmode Expansion Solver Version 7.23.3766 (Windows 64bit)
+ expires (month/day/year): 2/28/2025
+using config file: Ansys Licensing set with ANSYSLMD_LICENSE_FILE
+license host: 1055@172.19.61.210
+current time: Wed Feb 26 17:47:02 2025
+Running on host: Sorcerer-1
+All processes are communicating and ready to proceed to simulation...
+Running lms file: C:\Program Files\Lumerical\v241\bin\eme-engine-msmpi.exe -t 1 -remote -shared-solve-license QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT08QU5TWVNfTElDRU5TSU5HX0NPTlRFWFRfREFUQT48SUQ+NWZkMjA4NjMtODgzMi00MGM5LWFjYTctNDk2ZGIwOWZkNDFiPC9JRD48VFlQRT5BUFBfREVGSU5FRDwvVFlQRT48TkFNRT5sdW1fc3RhbmRhcmRfc29sdmVfc2hhcmU8L05BTUU+PEhBTkRMRVI+NTc3MzhAU29yY2VyZXItMTwvSEFORExFUj48L0FOU1lTX0xJQ0VOU0lOR19DT05URVhUX0RBVEE+Cg== C:/Users/Antonio/documents/work in vigo/soi_cornerstone/MMI.lms
+All processes are communicating and ready to proceed to simulation...
+Running MODE Simulation
+Starting simulation
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+All processes are communicating and ready to proceed to simulation...
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0 seconds of CPU time
+Starting meshing
+Simulation size in gridpoints: 1 x 280 x 52
+Refined 0 mesh cells (0%)
+Completed meshing!
+Meshing complete in 0.015625 seconds of CPU time
+EME simulation time (s): 26.6904
+Number of processes: 24
+Time to normalize fields and orthogonalize degenerate modes:  1.45112
+Time to calculate modes:  4.62791
+Time to calculate overlaps: 10.7483
+Total communication time: 9.95479
+Peak memory used by the engine: 475901 kB
+Simulation completed successfully at: Wed Feb 26 17:47:31 2025
+Overall EME run time (s): 30.0673

@@ -400,17 +400,17 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set('vertices',vtx_l)
     mode1.set('facets',b)
     
-    mode1.addplanarsolid(name="SSC_r_down",x = centered_x + MMi_length/2 + length/2,y = centered_y + distance/2 +width_l/2, z= centered_z + thickness/2, material = "Si_Salzberg")
+    mode1.addplanarsolid(name="SSC_r_down",x = centered_x + MMi_length/2 + length/2,y = centered_y + distance/2 +width_l/2, z= centered_z + height2/2, material = "Si_Salzberg")
     mode1.set('vertices',vtx_r)
     mode1.set('facets',b)
     
-    mode1.addplanarsolid(name="SSC_r_up",x = centered_x + MMi_length/2 + length/2,y = centered_y - distance/2 - width_l/2, z= centered_z + thickness/2, material = "Si_Salzberg")
+    mode1.addplanarsolid(name="SSC_r_up",x = centered_x + MMi_length/2 + length/2,y = centered_y - distance/2 - width_l/2, z= centered_z + height2/2, material = "Si_Salzberg")
     mode1.set('vertices',vtx_r)
     mode1.set('facets',b)
     
     #output
     
-    mode1.addplanarsolid(name="MMi",x = centered_x ,y = centered_y , z= centered_z + thickness/2, material = "Si_Salzberg")
+    mode1.addplanarsolid(name="MMi",x = centered_x ,y = centered_y , z= centered_z + height2/2, material = "Si_Salzberg")
     mode1.set('vertices',vtx_mmi)
     mode1.set('facets',b)
     
@@ -418,7 +418,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
 
     
     # port_length=Sizeinput + length_x
-    mode1.addeme(x_min = -MMi_length/2 - length, y = 0, y_span= width_bot_r_MMi*1.5,z=centered_z + LN_hight_sub/2, z_span= LN_hight_sub +0.5e-6,wavelength = wl )
+    mode1.addeme(x_min = -MMi_length/2 - length, y = 0, y_span= width_bot_r_MMi*1.5,z=centered_z + height2/2/2, z_span= height2 + height1 +0.5e-6,wavelength = wl )
     mode1.set("number of cell groups",3)
     mode1.set("group spans",np.array([[length], [MMi_length], [length]]))
     mode1.set("cells",np.array([[cell_points],[ 1],[ cell_points]]))
@@ -430,7 +430,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y",0)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", height2 + height1 )
     mode1.set("mode selection","fundamental mode")
     # set up ports: port 2
     mode1.select("EME::Ports::port_2")
@@ -438,7 +438,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y",centered_y - distance/2 - width_l/2)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", height2 + height1 )
     mode1.set("mode selection","fundamental mode")
     
     mode1.addemeport()
@@ -447,29 +447,28 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y", centered_y + distance/2 + width_l/2)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", height2 + height1 )
     mode1.set("mode selection","fundamental mode")
     mode1.set("port location","right")
     
     mode1.setactivesolver("EME")
-    mode1.addemeprofile(x = centered_x, y = centered_y, x_span = MMi_length + 2*length,y_span =width_bot_r_MMi*1.5, z =centered_z + LN_hight_sub/2)
+    mode1.addemeprofile(x = centered_x, y = centered_y, x_span = MMi_length + 2*length,y_span =width_bot_r_MMi*1.5, z =centered_z + height2/2)
 
     
     mode1.addmesh(name = "mesh_waveguide", x_min = centered_x - MMi_length/2 -length/2 + xmin , x_max = centered_x - MMi_length/2 -length/2 +xmax,
-      		y = centered_y , y_span= width_bot_l, z = centered_z + thickness/2, z_span = thickness,
+      		y = centered_y , y_span= width_bot_l, z = centered_z + height2/2, z_span = height2 + height1,
       		override_x_mesh = 0, override_y_mesh = 1,
       		override_z_mesh = 1, set_maximum_mesh_step = 1,
       		dy = 15e-9, dz = 15e-9)
 
     mode1.addmesh(name = "mesh_waveguide", x_min = centered_x + MMi_length/2 + length/2 + xmin , x_max = centered_x + MMi_length/2 + length/2 +xmax,
-      		y = centered_y + distance/2 +width_l/2 , y_span= width_bot_l, z = centered_z + thickness/2, z_span = thickness,
+      		y = centered_y + distance/2 +width_l/2 , y_span= width_bot_l,  z = centered_z + height2/2, z_span = height2 + height1,
       		override_x_mesh = 0, override_y_mesh = 1,
       		override_z_mesh = 1, set_maximum_mesh_step = 1,
       		dy = 15e-9, dz = 15e-9)
     
     mode1.addmesh(name = "mesh_waveguide", x_min = centered_x + MMi_length/2 + length/2 + xmin , x_max = centered_x + MMi_length/2 + length/2 +xmax,
-      		y = centered_y - distance/2 - width_l/2 , y_span= width_bot_l, z = centered_z + thickness/2, z_span = thickness,
-      		override_x_mesh = 0, override_y_mesh = 1,
+      		y = centered_y - distance/2 - width_l/2 , y_span= width_bot_l,  z = centered_z + height2/2, z_span = height2 + height1,
       		override_z_mesh = 1, set_maximum_mesh_step = 1,
       		dy = 15e-9, dz = 15e-9)
     

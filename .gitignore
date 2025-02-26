@@ -1,5 +1,7 @@
-"*.lms" 
-"*.png"
-"*.xls"
-"*.xlsx"
-"*.csv"
+*.lms 
+*.png
+*.xls
+*.xlsx
+*.csv
+*.pyc
+Test PIC/
