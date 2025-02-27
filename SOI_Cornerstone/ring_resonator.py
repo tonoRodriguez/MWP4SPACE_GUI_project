@@ -25,7 +25,8 @@ def calc_magnitude_and_phase(S_param):
     
     return magnitude, phase
 
-def Ring_Resonator(angle, width, gap, radius, x_span,b):
+def Ring_Resonator(angle, width, gap, radius, x_span,b,
+                   s_param_var):
     
 
     #angle = 90
@@ -139,111 +140,167 @@ def Ring_Resonator(angle, width, gap, radius, x_span,b):
        mode1.setnamed("inner_top","enabled",1)
        mode1.setnamed("inner_bottom","enabled",1)
     
+    
+    # Aca defino si uso 1 o 2 branch
     if (b==1):
         mode1.setnamed("outer_bottom","enabled",0)
-       
-    
-       
-    mode1.addvarfdtd(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z ,z_span = 1e-6)
-    mode1.set("simulation time", 5e-12)
-    mode1.addpower(name = "source",monitor_type= "Linear Y",x = 1.5e-6, y = radius+gap+base_width, y_span = base_width, z =centered_z)
-    mode1.set("override global monitor settings",1)
-    mode1.set("frequency points",1000)
-    mode1.addmodesource(injection_axis="x" , x = 1.5e-6, y= radius+gap+base_width,
-                        y_span = base_width,wavelength_start=1.4e-6,wavelength_stop=1.6e-6);
-
-    mode1.addprofile(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z )
-    mode1.addpower(name = "drop",monitor_type= "Linear Y",x = 1e-6, y = -radius-gap-base_width, y_span = base_width, z =centered_z)
-    mode1.set("override global monitor settings",1)
-    mode1.set("frequency points",1000)
-    #mode1.addmodeexpansion(name = "Drop",monitor_type= "Linear Y",x = 1e-6, y = -radius-gap-base_width, y_span = base_width, z =centered_z)
-    mode1.addpower(name = "through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
-    mode1.set("override global monitor settings",1)
-    mode1.set("frequency points",1000)
-    #mode1.addmodeexpansion(name = "Through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
-    mode1.addpower(name = "drop2",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = -radius-gap-base_width,  y_span = base_width, z =centered_z)
-    mode1.set("override global monitor settings",1)
-    mode1.set("frequency points",1000)
-    
-    #Mode expansion Monitors
-    mode1.addmodeexpansion(name = "expansion",monitor_type= "Linear Y",x = 1.5e-6, y= radius+gap+base_width, y_span = base_width, z =centered_z)
-    mode1.setexpansion("input","source")
-    mode1.setexpansion("drop","drop")
-    mode1.setexpansion("through","through")
-    mode1.setexpansion("drop2","drop2")
-    mode1.run()
-    e_in=mode1.getresult("expansion","expansion for input")
-    e_drop=mode1.getresult("expansion","expansion for drop")
-    e_through=mode1.getresult("expansion","expansion for through")
-    e_drop2=mode1.getresult("expansion","expansion for drop2")
-    
-    
-    
-    S11 = S22 = S33 = S44 =e_in["b"]/e_in["a"]
-    S21 = S12 = S34 = S43 = e_drop["b"]/e_in["a"]
-    S31 = S13 = S24 = S42 = e_through["a"]/e_in["a"]
-    S41 = S14 = S23 = S32 = e_drop2["a"]/e_in["a"]
-    f = e_in["f" ]
-    # Aplanar todas las variables
-    f_flat = f.ravel()
-    #lambda_flat = lambda_values.ravel()
-    S11_flat = S11.ravel()
-    S21_flat = S21.ravel()
-    S31_flat = S31.ravel()
-    S41_flat = S41.ravel()
-    
-    # Recalcular magnitudes y fases con las variables aplanadas
-    mag_S11, phase_S11 = calc_magnitude_and_phase(S11_flat)
-    mag_S21, phase_S21 = calc_magnitude_and_phase(S21_flat)
-    mag_S31, phase_S31 = calc_magnitude_and_phase(S31_flat)
-    mag_S41, phase_S41 = calc_magnitude_and_phase(S41_flat)
-    # Preparar datos para exportación
-    # Sdata = np.array([
-    #     f_flat,
-    #     mag_S11, phase_S11,
-    #     mag_S21, phase_S21,
-    #     mag_S31, phase_S31,
-    #     mag_S41, phase_S41
-    #     ]).T
-    
-    # Nombre del archivo de salida
-    # Nombre del archivo de salida
-    filename = "Interconnect/Ring_resonator.txt"
-    
-    # Escribir encabezado de opciones
-    with open(filename, "w") as file:
-        file.write('["opt_1","LEFT"]\n')
-        file.write('["opt_2","RIGHT"]\n')
-        file.write('["opt_3","RIGHT"]\n')
-        file.write('["opt_4","LEFT"]\n')  # Se agrega la configuración del cuarto puerto
-    
-    # Configuraciones para cada puerto
-    configs = [
-        ("opt_1", "TE", 1, "opt_1", 1, "transmission", 1.11705e-12),
-        ("opt_1", "TE", 1, "opt_2", 1, "transmission", 6.7908e-13),
-        ("opt_1", "TE", 1, "opt_3", 1, "transmission", 6.79081e-13),
-        ("opt_1", "TE", 1, "opt_4", 1, "transmission", 6.79081e-13)  # Se agrega la configuración para opt_4
-    ]
-    
-    # Iterar sobre configuraciones y datos
-    for config, mag, phase in zip(
-        configs,
-        [mag_S11, mag_S21, mag_S31, mag_S41],
-        [phase_S11, phase_S21, phase_S31, phase_S41]
-    ):
-        with open(filename, "a") as file:
-            # Escribir la configuración
-            file.write(f"{config}\n")
-            file.write("(11,3)\n")
+        mode1.addvarfdtd(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z ,z_span = 1e-6, x0 = - radius)
+        mode1.set("simulation time", 5e-12)
+        mode1.addpower(name = "source",monitor_type= "Linear Y",x = 1.5e-6, y = radius+gap+base_width, y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        mode1.addmodesource(injection_axis="x" , x = 1.5e-6, y= radius+gap+base_width,
+                            y_span = base_width,wavelength_start=1.4e-6,wavelength_stop=1.6e-6);
+        mode1.addprofile(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z )
+        mode1.addpower(name = "through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        
+        #Mode expansion Monitors
+        mode1.addmodeexpansion(name = "expansion",monitor_type= "Linear Y",x = 1.5e-6, y= radius+gap+base_width, y_span = base_width, z =centered_z)
+        mode1.setexpansion("input","source")
+        mode1.setexpansion("through","through")
+        mode1.run()
+        if s_param_var == 1:
+            e_in=mode1.getresult("expansion","expansion for input")
+            e_through=mode1.getresult("expansion","expansion for through")
+            S11 = S22 = e_in["b"]/e_in["a"]
+            S12 = S21 = e_through["a"]/e_in["a"]
             
-            # Escribir los datos en el formato solicitado
-            for f_val, mag_val, phase_val in zip(f_flat, mag, phase):
-                file.write(f"{f_val}\t{mag_val}\t{phase_val}\n")
+            f = e_in["f" ]
+            # Aplanar todas las variables
+            f_flat = f.ravel()
+            #lambda_flat = lambda_values.ravel()
+            S11_flat = S11.ravel()
+            S21_flat = S21.ravel()
+            
+            # Recalcular magnitudes y fases con las variables aplanadas
+            mag_S11, phase_S11 = calc_magnitude_and_phase(S11_flat)
+            mag_S21, phase_S21 = calc_magnitude_and_phase(S21_flat)
+            filename = "Interconnect/Ring_resonator_1branch.txt"
+            # Escribir encabezado de opciones
+            with open(filename, "w") as file:
+                file.write('["opt_1","LEFT"]\n')
+                file.write('["opt_2","RIGHT"]\n')
+    
+            # Configuraciones para cada puerto
+            configs = [
+                ("opt_1", "TE", 1, "opt_1", 1, "transmission", 1.11705e-12),
+                ("opt_1", "TE", 1, "opt_2", 1, "transmission", 6.7908e-13),
+                ("opt_1", "TE", 1, "opt_3", 1, "transmission", 6.79081e-13),
+                ("opt_1", "TE", 1, "opt_4", 1, "transmission", 6.79081e-13)  # Se agrega la configuración para opt_4
+            ]
+            
+            # Iterar sobre configuraciones y datos
+            for config, mag, phase in zip(
+                configs,
+                [mag_S11, mag_S21],
+                [phase_S11, phase_S21]
+            ):
+                with open(filename, "a") as file:
+                    # Escribir la configuración
+                    file.write(f"{config}\n")
+                    file.write("(11,3)\n")
+                    
+                    # Escribir los datos en el formato solicitado
+                    for f_val, mag_val, phase_val in zip(f_flat, mag, phase):
+                        file.write(f"{f_val}\t{mag_val}\t{phase_val}\n")
+
+       
+    else:
+       
+        mode1.addvarfdtd(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z ,z_span = 1e-6, x0 = -radius)
+        mode1.set("simulation time", 5e-12)
+        mode1.addpower(name = "source",monitor_type= "Linear Y",x = 1.5e-6, y = radius+gap+base_width, y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        mode1.addmodesource(injection_axis="x" , x = 1.5e-6, y= radius+gap+base_width,
+                            y_span = base_width,wavelength_start=1.4e-6,wavelength_stop=1.6e-6);
+        mode1.addprofile(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z )
+    
+        mode1.addpower(name = "drop",monitor_type= "Linear Y",x = 1e-6, y = -radius-gap-base_width, y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        #mode1.addmodeexpansion(name = "Drop",monitor_type= "Linear Y",x = 1e-6, y = -radius-gap-base_width, y_span = base_width, z =centered_z)
+        mode1.addpower(name = "through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        #mode1.addmodeexpansion(name = "Through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
+        mode1.addpower(name = "drop2",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = -radius-gap-base_width,  y_span = base_width, z =centered_z)
+        mode1.set("override global monitor settings",1)
+        mode1.set("frequency points",1000)
+        
+        #Mode expansion Monitors
+        mode1.addmodeexpansion(name = "expansion",monitor_type= "Linear Y",x = 1.5e-6, y= radius+gap+base_width, y_span = base_width, z =centered_z)
+        mode1.setexpansion("input","source")
+        mode1.setexpansion("drop","drop")
+        mode1.setexpansion("through","through")
+        mode1.setexpansion("drop2","drop2")
+        mode1.run()
+        if s_param_var ==1:
+            
+            e_in=mode1.getresult("expansion","expansion for input")
+            e_drop=mode1.getresult("expansion","expansion for drop")
+            e_through=mode1.getresult("expansion","expansion for through")
+            e_drop2=mode1.getresult("expansion","expansion for drop2")
+            
+            
+            
+            S11 = S22 = S33 = S44 =e_in["b"]/e_in["a"]
+            S21 = S12 = S34 = S43 = e_drop["b"]/e_in["a"]
+            S31 = S13 = S24 = S42 = e_through["a"]/e_in["a"]
+            S41 = S14 = S23 = S32 = e_drop2["a"]/e_in["a"]
+            f = e_in["f" ]
+            # Aplanar todas las variables
+            f_flat = f.ravel()
+            #lambda_flat = lambda_values.ravel()
+            S11_flat = S11.ravel()
+            S21_flat = S21.ravel()
+            S31_flat = S31.ravel()
+            S41_flat = S41.ravel()
+            
+            # Recalcular magnitudes y fases con las variables aplanadas
+            mag_S11, phase_S11 = calc_magnitude_and_phase(S11_flat)
+            mag_S21, phase_S21 = calc_magnitude_and_phase(S21_flat)
+            mag_S31, phase_S31 = calc_magnitude_and_phase(S31_flat)
+            mag_S41, phase_S41 = calc_magnitude_and_phase(S41_flat)
+            # Preparar datos para exportación
+            filename = "Interconnect/Ring_resonator.txt"
+            
+            # Escribir encabezado de opciones
+            with open(filename, "w") as file:
+                file.write('["opt_1","LEFT"]\n')
+                file.write('["opt_2","RIGHT"]\n')
+                file.write('["opt_3","RIGHT"]\n')
+                file.write('["opt_4","LEFT"]\n')  # Se agrega la configuración del cuarto puerto
+            
+            # Configuraciones para cada puerto
+            configs = [
+                ("opt_1", "TE", 1, "opt_1", 1, "transmission", 1.11705e-12),
+                ("opt_1", "TE", 1, "opt_2", 1, "transmission", 6.7908e-13),
+                ("opt_1", "TE", 1, "opt_3", 1, "transmission", 6.79081e-13),
+                ("opt_1", "TE", 1, "opt_4", 1, "transmission", 6.79081e-13)  # Se agrega la configuración para opt_4
+            ]
+            
+            # Iterar sobre configuraciones y datos
+            for config, mag, phase in zip(
+                configs,
+                [mag_S11, mag_S21, mag_S31, mag_S41],
+                [phase_S11, phase_S21, phase_S31, phase_S41]
+            ):
+                with open(filename, "a") as file:
+                    # Escribir la configuración
+                    file.write(f"{config}\n")
+                    file.write("(11,3)\n")
+                    
+                    # Escribir los datos en el formato solicitado
+                    for f_val, mag_val, phase_val in zip(f_flat, mag, phase):
+                        file.write(f"{f_val}\t{mag_val}\t{phase_val}\n")
 
 
 
 
     input("Presiona Enter para finalizar...")
-    return e_in,e_drop,e_through,e_drop2
+    return 0
 
 #Ring_Resonator(90, 0.5e-6, 0.1e-6, 30e-6, 80e-6)

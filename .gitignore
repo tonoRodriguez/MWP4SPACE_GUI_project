@@ -4,4 +4,6 @@
 *.xlsx
 *.csv
 *.pyc
+*.txt
+*.log
 Test PIC/
