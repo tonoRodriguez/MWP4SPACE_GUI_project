@@ -23,10 +23,9 @@ import lumapi
 #Waveguide analysis for RR and MMis FDE analysis
 
 
-def Coupling_mode_analysis(width, angle, gap, wl):
+def Coupling_mode_analysis(width, angle, gap, wl,
+                           word,doc):
     # Crear el documento Word
-    doc = Document()
-    doc.add_heading('Análisis de Guía de Onda en SOI', level=1)
     
     
     #angle = 90
@@ -51,7 +50,7 @@ def Coupling_mode_analysis(width, angle, gap, wl):
     centered_x = 0
     centered_y = 0
     centered_z = 0
-    mode1=lumapi.MODE()
+    mode1=lumapi.MODE(hide = True)
     materials = open(dir_mat).read()
     mode1.eval(materials)
     
@@ -109,25 +108,29 @@ def Coupling_mode_analysis(width, angle, gap, wl):
     polarization1=mode1.getresult("mode1","TE polarization fraction")
     S1= mode1.getresult("mode1","E")
     
-    Ex1 =np.rot90(S1["E"][0][:, :, :, 0], k=1, axes=(0, 1))    # Extrae la primera componente (E_x)
-    Ey1 =np.rot90(S1["E"][0][:, :, :, 1], k=1, axes=(0, 1))   # Extrae la segunda componente (E_y)
-    Ez1 =np.rot90(S1["E"][0][:, :, :, 2], k=1, axes=(0, 1))   # Extrae la tercera componente (E_z)
-    
-    E_intensity1 =  np.abs(Ex1)**2 +  np.abs(Ey1)**2 + np.abs(Ez1)**2
-    plt.imshow(E_intensity1[:, :, 0], cmap="inferno")
-    plt.colorbar(label="|E|^2")
-    plt.title("Intensidad del campo |E|^2 - Guía 1")
-    plt.savefig("campo_onda_1.png", dpi=300)
-    plt.close()
-    
-    # Agregar datos al documento
-    doc.add_heading('Resultados para una sola guía de onda', level=2)
-    doc.add_paragraph(f"Índice efectivo (neff): {neff1:.4f}")
-    doc.add_paragraph(f"Pérdidas: {loss1}")
-    doc.add_paragraph(f"Fracción de polarización TE: {polarization1}")
-    
-    doc.add_picture("campo_onda_1.png", width=Inches(4))
-    doc.add_page_break()
+    if word ==1:
+        Ex1 =np.rot90(S1["E"][0][:, :, :, 0], k=1, axes=(0, 1))    # Extrae la primera componente (E_x)
+        Ey1 =np.rot90(S1["E"][0][:, :, :, 1], k=1, axes=(0, 1))   # Extrae la segunda componente (E_y)
+        Ez1 =np.rot90(S1["E"][0][:, :, :, 2], k=1, axes=(0, 1))   # Extrae la tercera componente (E_z)
+        
+        E_intensity1 =  np.abs(Ex1)**2 +  np.abs(Ey1)**2 + np.abs(Ez1)**2
+        
+        plt.imshow(E_intensity1[:, :, 0], cmap="inferno")
+        plt.colorbar(label="|E|^2")
+        plt.title("Intensidad del campo |E|^2 - Guía 1")
+        plt.savefig("campo_onda_1.png", dpi=300)
+        plt.close()
+        
+        #doc = Document()
+        doc.add_heading('Análisis de Guía de Onda en SOI', level=1)
+        # Agregar datos al documento
+        doc.add_heading('Resultados para una sola guía de onda', level=2)
+        doc.add_paragraph(f"Índice efectivo (neff): {neff1:.4f}")
+        doc.add_paragraph(f"Pérdidas: {loss1}")
+        doc.add_paragraph(f"Fracción de polarización TE: {polarization1}")
+        
+        doc.add_picture("campo_onda_1.png", width=Inches(4))
+        doc.add_page_break()
     
     mode1.switchtolayout()
     
@@ -139,35 +142,39 @@ def Coupling_mode_analysis(width, angle, gap, wl):
     mode1.run()
     data = mode1.findmodes()
     
+
     neff2= np.real(mode1.getresult("mode2","neff")[0][0])
     loss2= mode1.getresult("mode2","loss")
     polarization2=mode1.getresult("mode2","TE polarization fraction")
     S2= mode1.getresult("mode2","E")
     
-    Ex2 =np.rot90(S2["E"][0][:, :, :, 0], k=1, axes=(0, 1))    # Extrae la primera componente (E_x)
-    Ey2 =np.rot90(S2["E"][0][:, :, :, 1], k=1, axes=(0, 1))   # Extrae la segunda componente (E_y)
-    Ez2 =np.rot90(S2["E"][0][:, :, :, 2], k=1, axes=(0, 1))   # Extrae la tercera componente (E_z)
-    
-    E_intensity2 =  np.abs(Ex2)**2 +  np.abs(Ey2)**2 + np.abs(Ez2)**2
-    # Guardar la imagen del campo eléctrico
-    plt.imshow(E_intensity2[:, :, 0], cmap="inferno")
-    plt.colorbar(label="|E|^2")
-    plt.title("Intensidad del campo |E|^2 - Guías acopladas")
-    plt.savefig("campo_onda_2.png", dpi=300)
-    plt.close()
-    
-    # Agregar datos al documento
-    doc.add_heading('Resultados para dos guías de onda', level=2)
-    doc.add_paragraph(f"Índice efectivo (neff): {neff2:.4f}")
-    doc.add_paragraph(f"Pérdidas: {loss2}")
-    doc.add_paragraph(f"Fracción de polarización TE: {polarization2}")
-    
-    doc.add_picture("campo_onda_2.png", width=Inches(4))
-    
+    if word ==1:
+        Ex2 =np.rot90(S2["E"][0][:, :, :, 0], k=1, axes=(0, 1))    # Extrae la primera componente (E_x)
+        Ey2 =np.rot90(S2["E"][0][:, :, :, 1], k=1, axes=(0, 1))   # Extrae la segunda componente (E_y)
+        Ez2 =np.rot90(S2["E"][0][:, :, :, 2], k=1, axes=(0, 1))   # Extrae la tercera componente (E_z)
+        
+        E_intensity2 =  np.abs(Ex2)**2 +  np.abs(Ey2)**2 + np.abs(Ez2)**2
+        # Guardar la imagen del campo eléctrico
+        plt.imshow(E_intensity2[:, :, 0], cmap="inferno")
+        plt.colorbar(label="|E|^2")
+        plt.title("Intensidad del campo |E|^2 - Guías acopladas")
+        plt.savefig("campo_onda_2.png", dpi=300)
+        plt.close()
+        
+        # Agregar datos al documento
+        doc.add_heading('Resultados para dos guías de onda', level=2)
+        doc.add_paragraph(f"Índice efectivo (neff): {neff2:.4f}")
+        doc.add_paragraph(f"Pérdidas: {loss2}")
+        doc.add_paragraph(f"Fracción de polarización TE: {polarization2}")
+        
+        doc.add_picture("campo_onda_2.png", width=Inches(4))
+        doc.add_page_break()
+        
     # Guardar el documento
-    doc.save("Analisis_Guia_Onda_SOI.docx")
+    #doc.save("Analisis_Guia_Onda_SOI.docx")
     
     print("Documento Word generado exitosamente.")
+    return neff1, neff2
 
 
 
