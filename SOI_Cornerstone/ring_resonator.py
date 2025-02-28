@@ -196,11 +196,7 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
                 doc.add_paragraph(f"Radio: {radius}")
                 doc.add_paragraph(f"Gap: {gap}")
                 
-                
-                # Agregar datos al documento
-                doc.add_heading('Resultados para el Ring Resonator de 2 ramas', level=2)
-                doc.add_paragraph(f"Radio: {radius:.4f}")
-                doc.add_paragraph(f"Gap: {gap}")
+               
                 
                 plt.imshow(E_intensity1[:, :, 0], cmap="inferno")
                 plt.colorbar(label="|E|^2")
