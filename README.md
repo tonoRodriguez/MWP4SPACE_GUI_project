@@ -11,4 +11,7 @@ Technologies available:
 
 ![LNOI](https://github.com/user-attachments/assets/8352590d-0671-44fe-aad5-15bb7db6b24d)
 
+<img src="https://github.com/user-attachments/assets/8352590d-0671-44fe-aad5-15bb7db6b24d" alt="LNOI" width="300">
+
+
 -
