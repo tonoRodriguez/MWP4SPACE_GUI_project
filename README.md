@@ -49,3 +49,5 @@ Files and Folders:
 
 - SiN: Code for participaten in the Cornerstone/Akethonics student batch
 - SOI_Cornerstone: PDK for participating in the SOI student batch of Cornerstone: It's a rib waveguide with the following specifications:
+![image](https://github.com/user-attachments/assets/b82fa280-c752-4632-af77-058c8031b12a)
+
