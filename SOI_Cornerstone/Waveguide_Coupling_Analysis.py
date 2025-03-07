@@ -50,7 +50,7 @@ def Coupling_mode_analysis(width, angle, gap, wl,
     centered_x = 0
     centered_y = 0
     centered_z = 0
-    mode1=lumapi.MODE(hide = True)
+    mode1=lumapi.MODE()
     materials = open(dir_mat).read()
     mode1.eval(materials)
     
@@ -104,6 +104,7 @@ def Coupling_mode_analysis(width, angle, gap, wl,
     data = mode1.findmodes()
     
     neff1= np.real(mode1.getresult("mode1","neff")[0][0])
+    ng = np.real(mode1.getresult("mode1","ng"))[0][0]
     loss1= mode1.getresult("mode1","loss")
     polarization1=mode1.getresult("mode1","TE polarization fraction")
     S1= mode1.getresult("mode1","E")
@@ -126,6 +127,7 @@ def Coupling_mode_analysis(width, angle, gap, wl,
         # Agregar datos al documento
         doc.add_heading('Resultados para una sola guía de onda', level=2)
         doc.add_paragraph(f"Índice efectivo (neff): {neff1:.4f}")
+        doc.add_paragraph(f"Índice de grupo (ng): {ng:.4f}")
         doc.add_paragraph(f"Pérdidas: {loss1}")
         doc.add_paragraph(f"Fracción de polarización TE: {polarization1}")
         
@@ -174,7 +176,7 @@ def Coupling_mode_analysis(width, angle, gap, wl,
     #doc.save("Analisis_Guia_Onda_SOI.docx")
     
     print("Documento Word generado exitosamente.")
-    return neff1, neff2
+    return neff1, neff2,ng
 
 
 

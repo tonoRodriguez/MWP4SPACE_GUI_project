@@ -61,8 +61,8 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
 
     
     #Start Lumerical Mode
-    mode1=lumapi.MODE(hide = True)
-    #mode1=lumapi.MODE() 
+    #mode1=lumapi.MODE(hide = True)
+    mode1=lumapi.MODE() 
     
     #Material Definition in Lumerical Mode
     materials = open(dir_mat).read()   
@@ -104,22 +104,22 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     		dy = 15e-9, dz = 15e-9)
     if rad !=0:
         #print("rad distinto de 0")
-        mode1.addfde(solver_type = "2D X normal" , x = centered_x, y = 0, y_span = waveguide_w + 0.5e-6,
+        mode1.addfde(solver_type = "2D X normal" , x = centered_x, y = 0, y_span = waveguide_w + 1e-6,
         		z = centered_z + height1 , z_span = 1e-6, z_min_bc = boundry , z_max_bc = boundry ,
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
-        		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
-        		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
+        		define_y_mesh_by = "maximum mesh step", dy = 50e-9,
+        		define_z_mesh_by = "maximum mesh step", dz = 50e-9,
         		wavelength = wl, number_of_trial_modes = 40, search = "in range",
         		n1 = 3.2, n2 = 1.7, bent_waveguide = 1, bend_radius = rad )
         #mode1.set("wavelength")
         
     else:
         #print("rad igual de 0")
-        mode1.addfde(solver_type = "2D X normal" , x = centered_x, y = 0, y_span = 1e-6,
+        mode1.addfde(solver_type = "2D X normal" , x = centered_x, y = 0, y_span = waveguide_w + 1e-6,
         		z = centered_z + height1,z_span = 1e-6, z_min_bc = boundry , z_max_bc = boundry ,
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
-        		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
-        		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
+        		define_y_mesh_by = "maximum mesh step", dy = 50e-9,
+        		define_z_mesh_by = "maximum mesh step", dz = 50e-9,
         		wavelength = wl, number_of_trial_modes = 40, search = "in range",
         		n1 = 3.2, n2 = 1.7, bent_waveguide = 0)
         
@@ -143,7 +143,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
         elif (polarization<= 0.5) and Existance:
             Mode_results = Mode_results + [["TM{}".format(tm),1.55e-6,neff,loss,polarization, ng]]
             tm = tm+1
-    #input("Presiona Enter para finalizar...")
+    input("Presiona Enter para finalizar...")
     mode1.close();
     return Mode_results
 
@@ -280,4 +280,4 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
         
 
 #testing area if you want to test it take out the # comment in line 121, comment line 39 and take out the comment of line 40
-#mode_analysis(0.64e-6, 90,"Metal",0,1.55e-6)
+mode_analysis(0.4e-6, 90,"PML",0,1.55e-6)

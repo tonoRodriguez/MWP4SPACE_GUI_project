@@ -81,12 +81,12 @@ def plot_from_excel(file_name, sheet_name):
         dble_gradient=np.gradient(gradient,delta_w)
         
         group_index.add(nombre, radio, values[3]-wavelengths[3]*gradient[3])
-        disperssion.add(nombre, radio, -(wavelengths[3]**2*dble_gradient[3]/c)*1e12)
+        disperssion.add(nombre, radio, -(wavelengths[3]*dble_gradient[3]/c)*1e6)#disperssion.add(nombre, radio, -(wavelengths[3]**2*dble_gradient[3]/c)*1e12)
 
 
     group_index.to_excel('Mode_{}.xlsx'.format(str(int(wavelengths[3]*1e9)) + "nm"),'Group Index calculated')
     disperssion.to_excel('Mode_{}.xlsx'.format(str(int(wavelengths[3]*1e9)) + "nm"),'Disspersion')
     return 
     
-plot_from_excel('Mode_1550nm.xlsx','Effective Indexes for analysis')
-plot_excel_sheet('Mode_1550nm.xlsx', 'Disspersion')
+plot_from_excel('Mode_1300nm.xlsx','Effective Indexes for analysis')
+plot_excel_sheet('Mode_1300nm.xlsx', 'Disspersion')

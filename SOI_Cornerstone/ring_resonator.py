@@ -27,7 +27,7 @@ def calc_magnitude_and_phase(S_param):
     return magnitude, phase
 
 def Ring_Resonator(angle, width, gap, radius, x_span,wl,
-                   b,s_param_var,word,doc):
+                   b,s_param_var,word,doc,ng):
     
 
     #angle = 90
@@ -50,6 +50,14 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
     centered_x = width_film_x/2
     centered_y = 0
     centered_z = 0
+    
+    # round trip calculation
+    
+    c = 299792458 # m/s
+    vr = c/ng
+    Tr = 2 *np.pi*radius / vr
+    
+    #mode starting
     mode1=lumapi.MODE()
     materials = open(dir_mat).read()
     mode1.eval(materials)
@@ -146,12 +154,12 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
     if (b==1):
         mode1.setnamed("outer_bottom","enabled",0)
         mode1.addvarfdtd(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z ,z_span = 1e-6, x0 =  radius)
-        mode1.set("simulation time", 10e-12)
+        mode1.set("simulation time", 4*Tr)#Calcular esto roundtrip trip
         mode1.addpower(name = "source",monitor_type= "Linear Y",x = 1.5e-6, y = radius+gap+base_width, y_span = base_width, z =centered_z)
         mode1.set("override global monitor settings",1)
         mode1.set("frequency points",1000)
         mode1.addmodesource(injection_axis="x" , x = 1.5e-6, y= radius+gap+base_width,
-                            y_span = base_width,wavelength_start=wl -0.025e-6,wavelength_stop=wl + 0.025e-6);
+                            y_span = base_width,wavelength_start=wl -0.005e-6,wavelength_stop=wl + 0.005e-6);
         mode1.addprofile(x = x_span/2 , x_span = x_span, y = 0, y_span = width_film_y, z =centered_z )
         mode1.addpower(name = "through",monitor_type= "Linear Y",x = x_span - 1.5e-6, y = radius+gap+base_width,  y_span = base_width, z =centered_z)
         mode1.set("override global monitor settings",1)
@@ -165,12 +173,15 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
         if s_param_var == 1:
             e_in=mode1.getresult("expansion","expansion for input")
             e_through=mode1.getresult("expansion","expansion for through")
-            S11 = S22 = e_in["b"]/e_in["a"]
-            S12 = S21 = e_through["a"]/e_in["a"]
+            S11 = S22 =e_in["b"]     #e_in["b"]/e_in["a"]
+            S12 = S21 = e_through["a"]    #e_through["a"]/e_in["a"]
             
+            c= 299792458
             f = e_in["f" ]
+            wl = c/f
             # Aplanar todas las variables
             f_flat = f.ravel()
+            wl_flat = wl.ravel()
             #lambda_flat = lambda_values.ravel()
             S11_flat = S11.ravel()
             S21_flat = S21.ravel()
@@ -195,6 +206,7 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
                 doc.add_heading('Resultados para el Ring Resonator de 1 rama', level=2)
                 doc.add_paragraph(f"Radio: {radius}")
                 doc.add_paragraph(f"Gap: {gap}")
+                doc.add_paragraph(f"Round trip time: {Tr*1e12} ps")
                 
                
                 
@@ -210,10 +222,10 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
                 fig1_path = "S11_vs_Frecuencia.png"
                 
                 plt.figure(figsize=(8, 5))
-                plt.plot(f_flat, mag_S11, label="|S11| (Reflexión)", color="blue")
+                plt.plot(wl_flat, mag_S11**2, label="|S11| (Reflexión)", color="blue")
                 
                 # Personalización del gráfico
-                plt.xlabel("Frecuencia (Hz)")
+                plt.xlabel("Wl (m)")
                 plt.ylabel("Magnitud de S11")
                 plt.title("Magnitud de S11 vs Frecuencia")
                 plt.legend()
@@ -233,10 +245,10 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
                 fig2_path = "S21_vs_Frecuencia.png"
                 
                 plt.figure(figsize=(8, 5))
-                plt.plot(f_flat, mag_S21, label="|S21| (Transmisión)", color="blue")
+                plt.plot(wl_flat, mag_S21**2, label="|S21| (Transmisión)", color="blue")
                 
                 # Personalización del gráfico
-                plt.xlabel("Frecuencia (Hz)")
+                plt.xlabel("Wl (m)")
                 plt.ylabel("Magnitud de S21")
                 plt.title("Magnitud de S21 vs Frecuencia")
                 plt.legend()

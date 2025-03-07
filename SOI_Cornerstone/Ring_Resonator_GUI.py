@@ -85,18 +85,19 @@ def on_button_click_rad():
     word_state = word_var.get()  # Obtener el estado del checkbutton (0 o 1)
     doc = Document()
     #print(wl , wl_opt_state, wg_check_state, word_state)
+    ng=5
     if branch == "One branch":
         b=1
     else:
         b=2
     
     if wg_check_state ==1:
-        neff1, neff2=Coupling_mode_analysis(width, angle, Gap, wl,
+        neff1, neff2,ng=Coupling_mode_analysis(width, angle, Gap, wl,
                                    word_state,doc)
         
     
     t12 = Ring_Resonator(angle, width, Gap, Radius, x_span,wl,
-                       b,wl_opt_state,word_state,doc)
+                       b,wl_opt_state,word_state,doc,ng)
     
     if wg_check_state ==1:
         Lcoupler = np.sin(np.abs(t12))*wl/(np.pi * np.abs(neff1 - neff2))
