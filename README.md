@@ -9,5 +9,6 @@ Technologies available:
 
 - LNOI_CG: PDK for participating in the LNOI run with CamGraphics: It's a rib waveguide 
 
+![LNOI](https://github.com/user-attachments/assets/8352590d-0671-44fe-aad5-15bb7db6b24d)
 
 -
