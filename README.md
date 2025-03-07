@@ -120,6 +120,9 @@ Files and Folders:
 #### `Data_Structure.py`
 Defines an object to handle the results obtained from Lumerical.
 
+### `Fixing_SOI_RR.py` 
+Code used for testing ring resonator structures
+
 #### `Mode_analysis.py`
 Performs basic measurements of waveguide minimum width and minimum bend, as well as dispersion analysis.
 
@@ -127,7 +130,7 @@ Performs basic measurements of waveguide minimum width and minimum bend, as well
 - `mode_analysis`: Single FDE simulation.
 - `rad_analysis`: Iterative radius analysis for different offsets.
 
-**Status:** In progress.
+**Status:** Rad analysis needs to be updated.
 
 #### `PDK_GUI.py`
 Uses Tkinter to call functions from `Mode_analysis.py`.
@@ -146,13 +149,15 @@ Used for plotting data obtained from mode analysis.
 #### `ring_resonator.py`
 Simulates ring resonators and writes the information to a Word document.
 
-**Status:** Needs update. Improve 2-branch ring resonator simulation.
+**Status:** Last Version. Improve 2-branch ring resonator simulation.
 
 #### `Ring_Resonator_GUI.py`
 Uses Tkinter to call `ring_resonator.py`.
-
 **Status:** Needs update.
 
+###`Ring_resonator_radious.py`
+
+Code used for simple scripts to calculate radius that adapt to the wavelength chosen for ring resonators
 #### `SSC_Analysis.py`
 Simulates tapers and MMIs, allowing different architectures to be combined.
 
@@ -180,5 +185,8 @@ Simulates a Y Splitter/Combiner and a Power Coupler.
 Uses Tkinter to call `Y_spl_Power_Coupler.py`.
 
 **Status:** Finished.
+
+### `Waveguide_Coupling_Analysis.py
+Code for complementing the information in the ring resonator analkysis. It calculates group index and effective index of the waveguide and the waveguide with the gap. It creates the wrod document
 
 ---
