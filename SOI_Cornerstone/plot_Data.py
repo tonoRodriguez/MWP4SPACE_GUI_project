@@ -32,7 +32,7 @@ def plot_excel_sheet(filename, sheet_name):
     plt.show()
 
         
-def plot_from_excel(file_name, sheet_name):
+def Analyse_ng_disspersion(file_name, sheet_name):
     """
     Lee un archivo Excel y genera gráficos de valor vs. longitud de onda 
     para cada combinación de nombre y radio.
@@ -88,5 +88,5 @@ def plot_from_excel(file_name, sheet_name):
     disperssion.to_excel('Mode_{}.xlsx'.format(str(int(wavelengths[3]*1e9)) + "nm"),'Disspersion')
     return 
     
-plot_from_excel('Mode_1300nm.xlsx','Effective Indexes for analysis')
+Analyse_ng_disspersion('Mode_1300nm.xlsx','Effective Indexes for analysis')
 plot_excel_sheet('Mode_1300nm.xlsx', 'Disspersion')
