@@ -44,6 +44,8 @@ Performs basic measurements of waveguide minimum width and minimum bend, as well
 **Status:** In progress.
 
 #### `PDK_GUI.py`
+![image](https://github.com/user-attachments/assets/453fd021-ca37-49c1-8b02-c19ef3864e54)
+
 Uses Tkinter to call functions from `Mode_analysis.py`.
 
 **Status:** Missing single calculation visibility in mode analysis. Needs name update.
@@ -63,6 +65,8 @@ Simulates ring resonators and writes the information to a Word document.
 **Status:** Needs update. Improve 2-branch ring resonator simulation.
 
 #### `Ring_Resonator_GUI.py`
+![image](https://github.com/user-attachments/assets/457fad26-5a51-4c98-b0a5-89392102b0cf)
+
 Uses Tkinter to call `ring_resonator.py`.
 
 **Status:** Needs update.
@@ -77,11 +81,15 @@ Simulates tapers and MMIs, allowing different architectures to be combined.
 **Status:** Needs update and renaming.
 
 #### `SSC_GUI.py`
+![image](https://github.com/user-attachments/assets/ddf59e5e-a086-421a-aefd-27667ef8fa0d)
+
 Uses Tkinter to call `SSC_Analysis.py`.
 
 **Status:** Finished.
 
 #### `Y_spl_Power_Coupler.py`
+![image](https://github.com/user-attachments/assets/a80c3af2-b967-43f2-ad8d-d20ef3729f93)
+
 Simulates a Y Splitter/Combiner and a Power Coupler.
 
 **Main Functions:**
