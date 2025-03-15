@@ -186,7 +186,7 @@ Uses Tkinter to call `Y_spl_Power_Coupler.py`.
 
 **Status:** Finished.
 
-### `Waveguide_Coupling_Analysis.py
+### `Waveguide_Coupling_Analysis.py`
 Code for complementing the information in the ring resonator analkysis. It calculates group index and effective index of the waveguide and the waveguide with the gap. It creates the wrod document
 
 ---

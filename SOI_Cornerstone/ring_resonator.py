@@ -37,7 +37,7 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
     m=0.55191502449
     centered_z=0
     #radius=50e-6
-    Lc =0
+   c
     #x_span=120e-6
     #gap = 0.25e-6
     base_width=width
