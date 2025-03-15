@@ -1,0 +1,16 @@
+select("arc");
+m=0.55191502449;
+theta = 30*pi/180; 
+
+
+
+P0 = [1, 0]*1e-6;
+P1 = [1, m * tan(theta / 2)]*1e-6;
+P2 = [cos(theta) - m * sin(theta) * tan(theta / 2), sin(theta) + m * cos(theta) * tan(theta / 2)]*1e-6;
+P3 = [cos(theta), sin(theta)]*1e-6;
+
+p = [P0; P1; P2; P3];
+
+set("poles",p);
+set("first axis",'z');
+set("rotation 1",0);

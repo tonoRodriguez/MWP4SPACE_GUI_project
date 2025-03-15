@@ -164,8 +164,8 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
     lx_up = width
     lx_down =width + 2 *LN_hight_wg * np.cos(angle_in_rad) / np.sin(angle_in_rad)
     
-    #mode1=lumapi.MODE(hide = True)
-    mode1=lumapi.MODE() 
+    mode1=lumapi.MODE(hide = True)
+    #mode1=lumapi.MODE() 
     
     materials = open(dir_mat).read()
         
@@ -279,5 +279,5 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
     return 0
         
 
-#testing area if you want to test it take out the # comment in line 121, comment line 39 and take out the comment of line 40
-mode_analysis(0.4e-6, 90,"PML",0,1.55e-6)
+#testing area if you want to test it ake out the # comment in line 121, comment line 39 and take out the comment of line 40
+mode_analysis(0.7e-6, 90,"PML",46.5e-6,1.55e-6)
