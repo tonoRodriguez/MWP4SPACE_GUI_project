@@ -37,7 +37,6 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
     m=0.55191502449
     centered_z=0
     #radius=50e-6
-   c
     #x_span=120e-6
     #gap = 0.25e-6
     base_width=width
@@ -56,7 +55,7 @@ def Ring_Resonator(angle, width, gap, radius, x_span,wl,
     c = 299792458 # m/s
     vr = c/ng
     Tr = 2 *np.pi*radius / vr
-    
+    Lc=0
     #mode starting
     mode1=lumapi.MODE()
     materials = open(dir_mat).read()

@@ -280,4 +280,4 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
         
 
 #testing area if you want to test it ake out the # comment in line 121, comment line 39 and take out the comment of line 40
-mode_analysis(0.7e-6, 90,"PML",46.5e-6,1.55e-6)
+mode_analysis(0.4e-6, 90,"Metal",0,1.55e-6)
