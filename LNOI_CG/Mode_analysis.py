@@ -66,7 +66,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     lx_down =waveguide_w + LN_hight_wg / np.tan(angle_in_rad)
     
     
-    #mode1=lumapi.MODE(hide = True)
+    #mode1=lumapi.MODE()
     mode1=lumapi.MODE(hide  = True) 
     
     materials = open(dir_mat).read()
@@ -101,7 +101,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     		, rotation_1 =-90, z_span = width_film_y, material = "LN_SE" , vertices = V )
     
     mode1.addmesh(name = "mesh_waveguide", x_min = 0 , x_max = 2e-6,
-    		y = 0 , y_span= 4e-6, z = 6.3e-6, z_span = 1.8e-6,
+    		y = 0 , y_span= lx_down, z = 6.3e-6, z_span = 1.8e-6,
     		override_x_mesh = 0, override_y_mesh = 1,
     		override_z_mesh = 1, set_maximum_mesh_step = 1,
     		dy = 15e-9, dz = 15e-9)
@@ -109,8 +109,8 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     
     if rad !=0:
         #print("rad distinto de 0")
-        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = 4.5e-6,
-        		z = 6.3e-6,z_span = 3.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
+        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +1.5e-6,
+        		z =centered_z,z_span = 1.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
         		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
         		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
@@ -120,8 +120,8 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
         
     else:
         #print("rad igual de 0")
-        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = 4.5e-6,
-        		z = 6.3e-6,z_span = 3.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
+        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +1.5e-6,
+        		z = 6.3e-6,z_span = 1.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
         		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
         		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
@@ -166,8 +166,8 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
     lx_up = width
     lx_down =width + 2 *LN_hight_wg * np.cos(angle_in_rad) / np.sin(angle_in_rad)
     
-    #mode1=lumapi.MODE(hide = True)
-    mode1=lumapi.MODE(hide = True) 
+    mode1=lumapi.MODE(hide = True)
+    #mode1=lumapi.MODE(hide = True) 
     
     materials = open(dir_mat).read()
         
@@ -392,4 +392,4 @@ def File_creator(angle, waveguide_w,wl,rad):
     input("presione enter pora salir")
 
 
-#MR=mode_analysis(0.8e-6, 85,"Metal",0,1.5e-6)
+#MR=mode_analysis(0.4e-6, 85,"PML",0,1.55e-6)
