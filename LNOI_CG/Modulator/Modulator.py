@@ -70,19 +70,151 @@ device.set("name","UV15")
 angle = 70
 height2=0.3e-6
 width1=0.6e-6
+
+V = np.zeros((8, 2))
+
+# Asignar valores a la matriz V
+# Va desde el -25 hasta el 25
+# el numero 2 representa las diferentes alturas 2 -> 2.7 -> 2.86
+# Deberia ser 2 -> 2.3 y 2.6
+# ancho de la parte de abajo vendria siendo -8.15 - -6.35 = 1.8
+# ancho de la parte de arriba vendria siendo -7.8 - - 6.7 = 1.1
+V[0, 0:2] = [-6.35e-6, 2.7e-6]
+V[1, 0:2] = [-6.7e-6, 2.86e-6]
+V[2, 0:2] = [-7.8e-6, 2.86e-6]
+V[3, 0:2] = [-8.15e-6, 2.7e-6]
+V[4, 0:2] = [-25e-6, 2.7e-6]
+V[5, 0:2] = [-25e-6, 2e-6]
+V[6, 0:2] = [25e-6, 2e-6]
+V[7, 0:2] = [25e-6, 2.7e-6]
+
+
 device.addrect(name = "LiNbO3 Handle", x = 0, x_span = 50e-6,y =0, y_span= 20e-6,z = -9.5e-6, z_span= 9e-6,
                material =  "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
 
 device.addrect(name = "SiO2 Substrate", x = 0, x_span = 50e-6,y =0, y_span= 20e-6,z = -1.5e-6, z_span= 7e-6,
-               material =  "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
-device.addrect(name = "LiNbO3 Wg 1", x = 0, x_span = 50e-6,y =0, y_span= 20e-6,z = 2.15e-6, z_span= 0.3e-6,
-               material =  "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
-device.addwaveguide(name = "Left waveguide",base_angle = angle, base_height= height2, base_width=width1,
-               material =  "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
+               material =  "SiO2 (Glass) - Sze")
+# device.addrect(name = "LiNbO3 Wg 1", x = 0, x_span = 50e-6,y =0, y_span= 20e-6,z = 2.15e-6, z_span= 0.3e-6,
+#                material =  "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
 
-device.setnamed("Left waveguide","poles",np.array([[0 , -10e-6 ],
-                                         [0 , 10e-6 ]]))
-device.setnamed("Left waveguide","z",2.3e-6 + height2*0.5)
-#addemmaterialproperty("Conductive");
-#addhtmaterialproperty("Solid");
-#addctmaterialproperty("Insulator");
+device.addpoly(name = "LNOI waveguide",x = 0, y =0, z = 0, first_axis = "x"
+		, rotation_1 =90, z_span = 20e-6, vertices = V, material = "LiNbO3 semiconductor - X/Y cut (Lithium Niobate)")
+
+
+
+device.addrect(name = "Ground Electrode Left", x = -14.5e-6, x_span = 9.5e-6,y =0, y_span= 20e-6,z = 3.6e-6, z_span= 1.8e-6,
+               material =  "Au (Gold) - CRC")
+
+device.addrect(name = "Signal", x = 0, x_span = 9.5e-6,y =0, y_span= 20e-6,z = 3.6e-6, z_span= 1.8e-6,
+               material =  "Au (Gold) - CRC")
+
+device.addrect(name = "Ground Electrode Right", x = 14.5e-6, x_span = 9.5e-6,y =0, y_span= 20e-6,z = 3.6e-6, z_span= 1.8e-6,
+               material =  "Au (Gold) - CRC")
+
+device.select("simulation region")
+
+device.set("x", -7.25e-6)
+device.set("x span", 28e-6)
+
+device.set("z", 2.43e-6)
+device.set("z span", 9e-6)
+
+device.set("background material", "UV15")
+
+device.addchargesolver(solver_mode = "steady state", temperature_dependence = "isothermal", norm_length = 10000e-6,min_edge_length = 0.01e-6, max_edge_length = 4e-6 )
+
+device.addelectricalcontact(name = "Signal" , sweep_type = "range", range_start  = 0 , range_stop = 5, range_num_points = 17,
+                            surface_type = "solid" , solid = "Signal")
+device.set("bc mode" , "steady state")
+device.set("force ohmic" , True )
+
+device.addelectricalcontact(name = "Ground" , sweep_type = "single", voltage = 0, range_num_points = 17,
+                            surface_type = "solid" , solid = "Ground Electrode Left")
+device.set("bc mode" , "steady state")
+device.set("force ohmic" , True )
+
+device.addefieldmonitor(name = "E field" , record_electric_field = 1)
+device.set( "monitor type" , "2D y-normal")
+device.set( "x" , -7.25e-6)
+device.set( "x span" , 32e-6)
+device.set( "y" , 0)
+device.set( "z", 2e-6)
+device.set("z span",2e-6)
+device.run("CHARGE")
+
+#r=device.getresult("CHARGE::E field","electrostatics")
+# #addemmaterialproperty("Conductive");
+# #addhtmaterialproperty("Solid");
+# #addctmaterialproperty("Insulator");
+
+r= device.getresult("CHARGE","electrostatics");
+
+# ### Lithium Niobate telecom permitivity
+eps_o = 2.21**2;
+eps_e = 2.14**2;
+
+# ### Lithium Niobate non;linear coefficents
+r_13 = 9.6e-12;
+r_33 = 30.9e-12;
+
+E = r["E"] #(6003, len(Volt), 1, 3).
+Ex = E[..., 0]  # Componente x
+Ey = E[..., 1]  # Componente y
+Ez = E[..., 2]  # Componente z
+
+
+Volt = r["V_Signal"]
+dts = np.shape(E);
+
+n_EO = np.zeros([3,dts[1],dts[0]])
+dn = np.zeros([3,dts[1],dts[0]])
+
+eps_unperturbed = np.array([
+    np.ones(dts[0] )* eps_e,  # Eje extraordinario
+    np.ones(dts[0])*  eps_o,  # Eje ordinario
+    np.ones(dts[0] )*  eps_o   # Eje ordinario
+])
+
+
+# Bucle sobre voltajes
+for vv in range(len(Volt)):  
+    # Pockels effect: calcular perturbación en la permitividad inversa
+    deps_inv = np.array([
+        r_33 * E[:,vv,:,0].squeeze(),  
+        r_13 * E[:,vv,:,0].squeeze(),  
+        r_13 * E[:,vv,:,0].squeeze() 
+    ]) # (6003, 3)
+
+#     # Calcular n_EO usando la relación de permitividad efectiva
+    n_EO[:, vv, :] = np.sqrt(1/(1/eps_unperturbed + deps_inv))
+
+
+
+# Calcular cambios en el índice de refracción
+dn = n_EO.copy()
+# dn[:, :, 0] -= np.sqrt(eps_e)  # Componente extraordinaria
+# dn[:, :, 1:3] -= np.sqrt(eps_o)  # Componentes ordinarias
+
+# Agregar atributos a un diccionario para simular electro.addattribute
+# electro = {"n_EO": n_EO, "dn": dn}
+
+# # Visualización de resultados (opcional, depende del entorno)
+# print("n_EO:", n_EO)
+# print("dn:", dn)
+
+### Add dn and n_EO to dataset and visualize
+dn[:,:,1] = n_EO[:,:,1]  - np.sqrt(eps_e)
+dn[:,:,2:3] = n_EO[:,:,2:3]  - np.sqrt(eps_o)
+r["dn"] = dn
+r["n_EO"] = n_EO
+
+device.switchtolayout()
+
+device.addfeemsolver(number_of_trial_modes = 20, wavelength = 1.55e-6, edges_per_wavelength = 4,
+                     polynomial_order= 2,use_max_index = 0, n = 2.02)
+
+device.addpml( sigma = 5)
+device.addpec( surface_type = "simulation region",x_min = 1, x_max = 1 , y_min = 1 , y_max= 1 ,
+              z_min = 1 , z_max = 1)
+device.addimportnk(name= "nk import",volume_type = "solid", volume_solid = "LNOI waveguide")
+device.setnamed("FEEM::nk import","enabled",True)

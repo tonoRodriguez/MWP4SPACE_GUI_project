@@ -22,8 +22,8 @@ from Data_Structure import DataStructure
 def mode_function(width_max, width_min, points, angle, material,wl):
     #print(width_min, width_max, points, angle, material)
     widths=np.linspace(width_max,width_min,points)
-    delta_w=20e-9
-    wavelengths=np.linspace(wl-delta_w,wl + delta_w,31)
+    delta_w=5e-9
+    wavelengths=np.linspace(wl-delta_w,wl + delta_w,7)
     
     neff_df=DataStructure()
     losses_df=DataStructure()
