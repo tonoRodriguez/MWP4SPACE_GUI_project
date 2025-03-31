@@ -104,7 +104,7 @@ def y_splitter(base_angle, base_width, y_span, Lw, Ls):
     mode1.addpower(name = "Up",monitor_type= "Linear Y",x = 2*Lw+Ls, y = y_span/2, y_span = base_width, z =centered_z)
     mode1.addpower(name = "Down",monitor_type= "Linear Y",x = 2*Lw+Ls, y = - y_span/2,  y_span = base_width, z =centered_z)    
    
-    #mode1.run()
+    mode1.run()
 
     input("Presiona Enter para finalizar...")
     

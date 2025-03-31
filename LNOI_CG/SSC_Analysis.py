@@ -438,7 +438,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y",0)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", 2*LN_hight_sub)
     mode1.set("mode selection","fundamental mode")
     # set up ports: port 2
     mode1.select("EME::Ports::port_2")
@@ -446,7 +446,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y",centered_y - distance/2 - width_l/2)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", 2*LN_hight_sub)
     mode1.set("mode selection","fundamental mode")
     
     mode1.addemeport()
@@ -455,7 +455,7 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     mode1.set("y", centered_y + distance/2 + width_l/2)
     mode1.set("y span",width_bot_r)
     mode1.set("z",0)
-    mode1.set("z span", LN_hight_sub)
+    mode1.set("z span", 2*LN_hight_sub)
     mode1.set("mode selection","fundamental mode")
     mode1.set("port location","right")
     
