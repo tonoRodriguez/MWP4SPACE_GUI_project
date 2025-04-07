@@ -38,7 +38,7 @@ neff = getresult("FEEM","modeproperties.neff");
 neff = neff.neff;
 mde_num = find(TE_pol_frac>0.95);
 neff_TE(1) = neff(mde_num(1));
-
+print(mde_num);
 #mde_num = find(TE_pol_frac>0.95);
 #neff_TE(1) = neff(mde_num(1));
 #neff_TE(1) = neff(1);
@@ -59,7 +59,7 @@ for (vv=2:length(Volt)){
     neff = neff.neff;
     #fields = getresult("FEEM","fields");
     mde_num = find(TE_pol_frac>0.95);
-    
+    #print(mde_num);
     neff_TE(vv) = neff(mde_num(1));
     #neff_TE(vv) = neff(1);
 }

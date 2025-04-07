@@ -47,7 +47,8 @@ def borders_analysis(S):
         return True
 
 
-def mode_analysis(waveguide_w,angle,boundry,rad,wl):
+def mode_analysis(waveguide_w,angle,boundry,rad,wl, LN_dir):
+    
     #constants
     centered_x = 0
     centered_y = 0
@@ -66,8 +67,8 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     lx_down =waveguide_w + LN_hight_wg / np.tan(angle_in_rad)
     
     
-    mode1=lumapi.MODE()
-    #mode1=lumapi.MODE(hide  = True) 
+    #mode1=lumapi.MODE()
+    mode1=lumapi.MODE(hide  = True) 
     
     materials = open(dir_mat).read()
     
@@ -86,7 +87,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     
     mode1.addrect(name="LN_core1",x = centered_x, x_span=width_film_x,
     		 y = centered_y, y_span=width_film_y, z_min = centered_z,
-    		 z_max= centered_z+ LN_hight_sub, material = "LN_SE" )
+    		 z_max= centered_z+ LN_hight_sub, material = LN_dir )
     centered_z=centered_z+LN_hight_sub
     
     V = np.zeros((4, 2))
@@ -98,7 +99,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
     V[3, 0:2] = [0, lx_down / 2]
     
     mode1.addpoly(x = 0, y =0, z = centered_z, first_axis = "y"
-    		, rotation_1 =-90, z_span = width_film_y, material = "LN_SE" , vertices = V )
+    		, rotation_1 =-90, z_span = width_film_y, material = LN_dir , vertices = V )
     
     mode1.addmesh(name = "mesh_waveguide", x_min = 0 , x_max = 2e-6,
     		y = 0 , y_span= lx_down, z = 6.3e-6, z_span = 1.8e-6,
@@ -121,7 +122,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
         
     else:
         #print("rad igual de 0")
-        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +8e-6,
+        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +6e-6,
         		z = 6.3e-6,z_span = 3e-6, z_min_bc = boundry , z_max_bc = boundry ,
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
         		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
@@ -148,7 +149,7 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl):
         elif (polarization<= 0.5) and Existance:
             Mode_results = Mode_results + [["TM{}".format(tm),1.55e-6,neff,loss,polarization, ng, lx_up,lx_down]]
             tm = tm+1
-    input("Presiona Enter para finalizar...")
+    #input("Presiona Enter para finalizar...")
     mode1.close();
     return Mode_results
 
@@ -233,7 +234,7 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
     shifty_df=DataStructure()
     #print(neff_df)
     for j in range(points):
-        offset=2.5e-6
+        offset=2e-6
         mode1.switchtolayout()
         
         mode1.select("FDE")
@@ -399,5 +400,6 @@ def File_creator(angle, waveguide_w,wl,rad):
     input("presione enter pora salir")
 
 
-MR=mode_analysis(0.8e-6, 70,"Metal",50e-6,1.55e-6)
+#MR=mode_analysis(0.7e-6, 70,"Metal",60e-6,1.55e-6, "LN_SE")
+#MR=mode_analysis(0.7e-6, 70,"Metal",60e-6,1.55e-6, "LN_SE_extraordinary")
 #Sres = rad_analysis(20e-6,140e-6,20, 75,"Metal",0.8e-6,1.55e-6)

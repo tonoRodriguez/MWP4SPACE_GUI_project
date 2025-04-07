@@ -19,7 +19,7 @@ from Data_Structure import DataStructure
 
 # Función que se llama cuando se hace clic en el botón
 #hacerlo con una matriz!!!!!
-def mode_function(width_max, width_min, points, angle, material,wl):
+def mode_function(width_max, width_min, points, angle, material,wl , eff_inx):
     #print(width_min, width_max, points, angle, material)
     widths=np.linspace(width_max,width_min,points)
     delta_w=5e-9
@@ -31,7 +31,7 @@ def mode_function(width_max, width_min, points, angle, material,wl):
     array_eff_index=DataStructure()
     for n in wavelengths:
         for i in range(0,points):
-            x =mode_analysis(widths[i],angle, material,0,n)
+            x =mode_analysis(widths[i],angle, material,0,n,eff_inx)
             #print(x)
             if n == wl and x:
                 print("Entro =wl")
@@ -98,23 +98,29 @@ tk.Label(root, text="Wavelength um:").grid(row=5, column=0)
 wl_entry = tk.Entry(root)
 wl_entry.grid(row=5, column=1)
 # Crear y colocar el botón
+
+# Agregar Checkbutton con etiqueta "L opt"
+Ex_direc = tk.IntVar()  # Variable para almacenar el estado (0 o 1)
+Ex_direc_md = tk.Checkbutton(root, text="Use extraordinary effective Index", variable=Ex_direc)
+Ex_direc_md.grid(row=6, column=0, columnspan=1)
+
 def on_button_click():
     width_min = float(width_entry_min.get()) * 1e-6    
     width_max = float(width_entry_max.get()) * 1e-6
     space= int(points_entry.get())
     angle = float(angle_entry.get())
+    wl_opt_state = Ex_direc.get()  # Obtener el estado del checkbutton (0 o 1)
     material = material_var.get()
     wl = float(wl_entry.get())*1e-6
+    eff_inx = "LN_SE"
+    if wl_opt_state == 1:
+        eff_inx = "LN_SE_extraordinary"
 
-    mode_function(width_min, width_max, space, angle, material,wl)
+    mode_function(width_min, width_max, space, angle, material,wl,eff_inx)
 
 button = tk.Button(root, text="Submit", command=on_button_click)
-button.grid(row=6, columnspan=2)
+button.grid(row=7, columnspan=2)
 
-# Agregar Checkbutton con etiqueta "L opt"
-Word_var_md = tk.IntVar()  # Variable para almacenar el estado (0 o 1)
-Word_check_md = tk.Checkbutton(root, text="Make Word Doc", variable=Word_var_md)
-Word_check_md.grid(row=7, column=0, columnspan=1)
 
 tk.Label(root, text = "Bend analysis",font=("Helvetica", 10, "bold")).grid(row=8, column=0)
 

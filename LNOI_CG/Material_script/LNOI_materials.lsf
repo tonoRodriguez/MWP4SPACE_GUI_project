@@ -12,15 +12,27 @@ if(materialexists("LN_SE")==0){
     setmaterial(material_LN,"name","LN_SE");
     setmaterial("LN_SE", "A0", 1);
     setmaterial("LN_SE", "B1", 2.6734);
-    setmaterial("LN_SE", "C1", 0.01764^2);
+    setmaterial("LN_SE", "C1", 0.01764);
     setmaterial("LN_SE", "B2", 1.229);
-    setmaterial("LN_SE", "C2", 0.05914^2);
+    setmaterial("LN_SE", "C2", 0.05914);
     setmaterial("LN_SE", "B3", 12.614);
-    setmaterial("LN_SE", "C3",474.60^2);
+    setmaterial("LN_SE", "C3",474.60);
     setmaterial("LN_SE", "Color", [90/255,125/255,35/255,100/255]);
     material_LN = "LN_SE";
 }
-
+if(materialexists("LN_SE_extraordinary")==0){
+    material_LN_ex = addmaterial("Sellmeier");
+    setmaterial(material_LN_ex,"name","LN_SE_extraordinary");
+    setmaterial("LN_SE_extraordinary", "A0", 1);
+    setmaterial("LN_SE_extraordinary", "B1", 2.9804);
+    setmaterial("LN_SE_extraordinary", "C1", 0.02047);
+    setmaterial("LN_SE_extraordinary", "B2",  0.5981);
+    setmaterial("LN_SE_extraordinary", "C2", 0.0666);
+    setmaterial("LN_SE_extraordinary", "B3", 8.9543);
+    setmaterial("LN_SE_extraordinary", "C3",416.08);
+    setmaterial("LN_SE_extraordinary", "Color", [90/255,125/255,35/255,100/255]);
+    material_LN_ex = "LN_SE_extraordinary";
+}
 ######################################################
 ######## LiNbO3 Sellmeier Equation from from www.refractiveindex.info
 if(materialexists("Al2O3_SE")==0){
