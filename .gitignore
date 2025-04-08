@@ -8,4 +8,7 @@
 *.log
 *.png
 *.docx
+*.lsf
+*.fsp
+*.gds
 Test PIC/

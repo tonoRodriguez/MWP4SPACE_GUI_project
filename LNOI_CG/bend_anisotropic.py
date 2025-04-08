@@ -30,7 +30,7 @@ height=0.3e-6
 #width=0.7e-6
 m=0.55191502449
 centered_z=0
-radius=20e-6
+radius=30e-6
 Lc =0
 x_span=140e-6
 gap = 0.25e-6
@@ -86,7 +86,7 @@ FDTD.setnamed("arc1","z",centered_z)
 FDTD.addfdtd(x_min = p2[0][0]  - 3*width , x_max = p2[3][0] + 3*width , y_min = p2[0][1] - 3*width ,y_max = p2[3][1] +3*width , z =  centered_z , z_span = 4e-6,
              set_simulation_bandwidth = 1 , simulation_wavelength_min = 1.55e-6 , simulation_wavelength_max = 1.56e-6)
 FDTD.addport( ) 
-FDTD.set("x", p2[0][0])
+FDTD.set("x", p2[0][0] + 0.5e-6)
 FDTD.set( "y", p2[0][1])
 FDTD.set("y span" , width + 4e-6)
 FDTD.set( "z", centered_z - LN_hight_sub/2)
@@ -96,7 +96,7 @@ FDTD.set("z span" , 3e-6)
 FDTD.addport( )
 FDTD.set("injection axis" , "y-axis");
 FDTD.set("x", p2[3][0])
-FDTD.set( "y", p2[3][1])
+FDTD.set( "y", p2[3][1] - 0.5e-6)
 FDTD.set("x span" , width + 4e-6)
 FDTD.set( "z", centered_z - LN_hight_sub/2)
 FDTD.set("z span" , 3e-6)
