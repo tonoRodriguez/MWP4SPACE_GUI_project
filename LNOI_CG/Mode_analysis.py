@@ -110,9 +110,14 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl, LN_dir):
     
     if rad !=0:
         #print("rad distinto de 0")
+<<<<<<< HEAD
         offset = 2e-6
         mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = offset, y_span = lx_down +8e-6,
         		z =centered_z,z_span = 3e-6, z_min_bc = boundry , z_max_bc = boundry ,
+=======
+        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +1.5e-6,
+        		z =centered_z,z_span = 1.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
+>>>>>>> 8a44535fb4b3452e69e1091b9d85525ccb14327e
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
         		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
         		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
@@ -122,8 +127,13 @@ def mode_analysis(waveguide_w,angle,boundry,rad,wl, LN_dir):
         
     else:
         #print("rad igual de 0")
+<<<<<<< HEAD
         mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +6e-6,
         		z = 6.3e-6,z_span = 3e-6, z_min_bc = boundry , z_max_bc = boundry ,
+=======
+        mode1.addfde(solver_type = "2D X normal" , x = 0.5*2e-6, y = 0, y_span = lx_down +1.5e-6,
+        		z = 6.3e-6,z_span = 1.5e-6, z_min_bc = boundry , z_max_bc = boundry ,
+>>>>>>> 8a44535fb4b3452e69e1091b9d85525ccb14327e
         		y_min_bc = boundry, y_max_bc = boundry, min_mesh_step = 5e-9,
         		define_y_mesh_by = "maximum mesh step", dy = 100e-9,
         		define_z_mesh_by = "maximum mesh step", dz = 100e-9,
@@ -169,7 +179,11 @@ def rad_analysis(rad_min,rad_max,points, angle,boundry,width,wl):
     lx_down =width + 2 *LN_hight_wg * np.cos(angle_in_rad) / np.sin(angle_in_rad)
     
     mode1=lumapi.MODE(hide = True)
+<<<<<<< HEAD
     #mode1=lumapi.MODE() 
+=======
+    #mode1=lumapi.MODE(hide = True) 
+>>>>>>> 8a44535fb4b3452e69e1091b9d85525ccb14327e
     
     materials = open(dir_mat).read()
         
@@ -400,6 +414,10 @@ def File_creator(angle, waveguide_w,wl,rad):
     input("presione enter pora salir")
 
 
+<<<<<<< HEAD
 #MR=mode_analysis(0.7e-6, 70,"Metal",60e-6,1.55e-6, "LN_SE")
 #MR=mode_analysis(0.7e-6, 70,"Metal",60e-6,1.55e-6, "LN_SE_extraordinary")
 #Sres = rad_analysis(20e-6,140e-6,20, 75,"Metal",0.8e-6,1.55e-6)
+=======
+#MR=mode_analysis(0.4e-6, 85,"PML",0,1.55e-6)
+>>>>>>> 8a44535fb4b3452e69e1091b9d85525ccb14327e
