@@ -30,7 +30,7 @@ height=0.3e-6
 #width=0.7e-6
 m=0.55191502449
 centered_z=0
-radius=30e-6
+radius=60e-6
 Lc =0
 x_span=140e-6
 gap = 0.25e-6
@@ -51,8 +51,8 @@ n_ordinary = 2.2111
 n_extraordinary = 2.13755
 n_matrix = np.array([n_ordinary,n_extraordinary,n_ordinary])
 FDTD = lumapi.FDTD()
-mymaterial =FDTD.addmaterial("(n,k) Material");
-FDTD.setmaterial(mymaterial,"name","LN_anisotropic");
+mymaterial =FDTD.addmaterial("(n,k) Material")
+FDTD.setmaterial(mymaterial,"name","LN_anisotropic")
 FDTD.setmaterial("LN_anisotropic", "Anisotropy", 1); # enable diagonal anisotropy
 FDTD.setmaterial("LN_anisotropic","Refractive Index",n_matrix)
 

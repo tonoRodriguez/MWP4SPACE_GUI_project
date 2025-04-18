@@ -5,6 +5,17 @@ deleteall;   #delete all existing objects/structures
 #cleardcard;  # clear the d-cards used to store mode profiles
 clear;
 clearfunctions;
+
+if(materialexists("LN_anisotropic")==0){
+    n_ordinary = 2.2111;
+    n_extraordinary = 2.13755;
+
+    n_matrix =[n_ordinary; n_extraordinary;n_ordinary];
+    mymaterial =addmaterial("(n,k) Material");
+    setmaterial(mymaterial,"name","LN_anisotropic");
+    setmaterial("LN_anisotropic", "Anisotropy", 1); # enable diagonal anisotropy
+    setmaterial("LN_anisotropic","Refractive Index",n_matrix);
+}
 ######################################################
 ######## LiNbO3 Sellmeier Equation from from www.refractiveindex.info
 if(materialexists("LN_SE")==0){

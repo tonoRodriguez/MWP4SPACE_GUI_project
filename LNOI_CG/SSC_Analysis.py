@@ -29,7 +29,8 @@ def num_of_modes(S):
     return mode
 def SSC_sim(length,angle_side,wg_max,wg_min,cell_points, wl, # basic tapper simulation
             length_analysis,length_span, # length optimization
-            wl_analysis, wl_span  #wavelength s parameters
+            wl_analysis, wl_span,  #wavelength s parameters
+            ln_dir
             ):
     # def mode_analysis(waveguide_w,angle,boundry,rad):
     mode1=lumapi.MODE()
@@ -101,7 +102,7 @@ def SSC_sim(length,angle_side,wg_max,wg_min,cell_points, wl, # basic tapper simu
     
     mode1.addrect(name="LN_core1",x_min = xmin- length/2 -centered_x , x_max=xmax,
     		 y = centered_y, y_span=width_film_y, z_min = centered_z,
-    		 z_max= centered_z+ LN_hight_sub, material = "LN_SE" )
+    		 z_max= centered_z+ LN_hight_sub, material = ln_dir )
     centered_z=centered_z+LN_hight_sub*1.5
     
     
@@ -143,11 +144,11 @@ def SSC_sim(length,angle_side,wg_max,wg_min,cell_points, wl, # basic tapper simu
     
     
     
-    mode1.addplanarsolid(name="SSC",x = centered_x,y = centered_y, z= centered_z, material = "LN_SE")
+    mode1.addplanarsolid(name="SSC",x = centered_x,y = centered_y, z= centered_z, material = ln_dir)
     mode1.set('vertices',vtx)
     mode1.set('facets',b)
     
-    mode1.addplanarsolid(name="Input",x = centered_x ,y = centered_y, z= centered_z, material = "LN_SE")
+    mode1.addplanarsolid(name="Input",x = centered_x ,y = centered_y, z= centered_z, material = ln_dir)
     mode1.set('vertices',vtx_input)
     mode1.set('facets',b)
     
@@ -223,7 +224,8 @@ def SSC_sim(length,angle_side,wg_max,wg_min,cell_points, wl, # basic tapper simu
     return 0
 def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length,distance,wl, # basic tapper simulation
             length_analysis,length_span, # length optimization
-            wl_analysis, wl_span  #wavelength s parameters
+            wl_analysis, wl_span,  #wavelength s parameters
+            ln_dir
             ):
 
 
@@ -399,26 +401,26 @@ def mmi_sim(ssc_length,angle_side,wg_max,wg_min,cell_points,MMi_width,MMi_length
     
     mode1.addrect(name="LN_core1",x = centered_x, x_span=2*length + MMi_length,
     		 y = centered_y, y_span=width_bot_r_MMi*1.5, z_min = centered_z,
-    		 z_max= centered_z+ LN_hight_sub, material = "LN_SE" )
+    		 z_max= centered_z+ LN_hight_sub, material = ln_dir )
     centered_z=centered_z+LN_hight_sub
     
     #input output
     
-    mode1.addplanarsolid(name="SSC_l",x = centered_x - MMi_length/2 -length/2,y = centered_y, z= centered_z + thickness/2, material = "LN_SE")
+    mode1.addplanarsolid(name="SSC_l",x = centered_x - MMi_length/2 -length/2,y = centered_y, z= centered_z + thickness/2, material = ln_dir)
     mode1.set('vertices',vtx_l)
     mode1.set('facets',b)
     
-    mode1.addplanarsolid(name="SSC_r_down",x = centered_x + MMi_length/2 + length/2,y = centered_y + distance/2 +width_l/2, z= centered_z + thickness/2, material = "LN_SE")
+    mode1.addplanarsolid(name="SSC_r_down",x = centered_x + MMi_length/2 + length/2,y = centered_y + distance/2 +width_l/2, z= centered_z + thickness/2, material = ln_dir)
     mode1.set('vertices',vtx_r)
     mode1.set('facets',b)
     
-    mode1.addplanarsolid(name="SSC_r_up",x = centered_x + MMi_length/2 + length/2,y = centered_y - distance/2 - width_l/2, z= centered_z + thickness/2, material = "LN_SE")
+    mode1.addplanarsolid(name="SSC_r_up",x = centered_x + MMi_length/2 + length/2,y = centered_y - distance/2 - width_l/2, z= centered_z + thickness/2, material = ln_dir)
     mode1.set('vertices',vtx_r)
     mode1.set('facets',b)
     
     #output
     
-    mode1.addplanarsolid(name="MMi",x = centered_x ,y = centered_y , z= centered_z + thickness/2, material = "LN_SE")
+    mode1.addplanarsolid(name="MMi",x = centered_x ,y = centered_y , z= centered_z + thickness/2, material = ln_dir)
     mode1.set('vertices',vtx_mmi)
     mode1.set('facets',b)
     
